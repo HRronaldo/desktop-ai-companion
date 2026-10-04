@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "mengshi.character.v1",
+  "type": "character_pack",
+  "displayName": "王梦诗",
+  "version": "0.1.0",
+  "publisher": "HRronaldo (private)",
+  "description": "王梦诗——成熟御姐：冷静理性 + 腹黑高冷 + 傲娇毒舌（外壳），温柔体贴（内里）。本项目第 1 个角色包。",
+  "assets": {
+    "vrm": "assets/model.vrm",
+    "personaStyle": "assets/persona-style.json",
+    "voiceProfile": "assets/voice-profile.json"
+  },
+  "compatibility": {
+    "minAilisVersion": "1.4.8",
+    "runtime": [
+      "desktop"
+    ]
+  }
+}
