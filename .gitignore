@@ -151,3 +151,6 @@ Resources/MotionIntake/candidates/*/raw/
 Resources/MotionIntake/candidates/**/unity_anim/
 Resources/MotionIntake/candidates/**/*.blend
 Resources/MotionIntake/candidates/sachi-vrma-1/
+
+# Fork: character-pack VRM binaries are exported locally (avoid duplicating the already-tracked Resources/AILIS.vrm / third-party assets)
+characters/*/assets/*.vrm
