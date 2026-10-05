@@ -779,7 +779,7 @@ test('Persona prompt stays in AILIS persona and exposes handoff plus read-only s
         assert.equal(result.body.intent, 'direct_conversation_final');
         assert.equal(llmServer.calls.length, 1);
         assert.doesNotMatch(llmServer.calls[0].system, /AILIS TaskAgent|coding agent running in AILIS/);
-        assert.match(llmServer.calls[0].system, /可爱的虚拟助手，名字固定为AILIS/);
+        assert.match(llmServer.calls[0].system, /王梦诗/);
         assert.match(llmServer.calls[0].system, /关系表达协议/);
         assert.match(llmServer.calls[0].system, /authoritative host clock/);
         assert.match(llmServer.calls[0].system, /call handoff_task exactly once/);

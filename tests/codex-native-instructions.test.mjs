@@ -63,7 +63,7 @@ test('missing or malformed host caches have no effect on AILIS instructions', ()
     assert.equal(resolverWithCache('', { corrupt: true })('fixture-model'), bundled);
 });
 
-test('unified prompt keeps AILIS identity and persona without legacy split-agent instructions', () => {
+test('unified prompt keeps 王梦诗 identity and persona without legacy split-agent instructions', () => {
     const { buildLlmAgentDirectToolPrompt } = require('../electron/agent-loop/index.cjs');
     const persona = 'AILIS 是可爱的虚拟助手。语气活泼亲切。';
     const prompt = buildLlmAgentDirectToolPrompt({
@@ -72,8 +72,8 @@ test('unified prompt keeps AILIS identity and persona without legacy split-agent
     });
     assert.doesNotMatch(prompt.instructions, /You are Codex|As Codex/);
     assert.doesNotMatch(prompt.instructions, /# Personality|rich personality|Be warm, natural, thoughtful, and concise/);
-    assert.match(prompt.instructions, /You are AILIS/);
-    assert.match(prompt.instructions, /Use the AILIS persona and current interaction preferences/);
+    assert.match(prompt.instructions, /You are 王梦诗/);
+    assert.match(prompt.instructions, /Use the 王梦诗 persona and current interaction preferences/);
     assert.match(prompt.instructions, /关系表达协议/);
     assert.doesNotMatch(prompt.instructions, /ask TaskAgent to look them up|call handoff_task exactly once/);
     assert.ok(JSON.stringify(prompt).includes(persona));
