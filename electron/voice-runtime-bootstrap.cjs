@@ -2236,7 +2236,8 @@ class VoiceRuntimeBootstrap {
             timeoutMs: INSTALL_TIMEOUT_MS,
             onOutput,
             env: {
-                HF_HUB_DISABLE_SYMLINKS_WARNING: '1'
+                HF_HUB_DISABLE_SYMLINKS_WARNING: '1',
+                HF_ENDPOINT: process.env.HF_ENDPOINT || 'https://hf-mirror.com'
             }
         });
         if (!result.ok) {
