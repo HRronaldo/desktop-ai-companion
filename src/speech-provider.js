@@ -490,8 +490,6 @@ class NativeSpeechSynthesisCandidate {
     get supportsTTS() {
         return (
             typeof window !== 'undefined' &&
-            !isDesktopRuntime() &&
-            CONFIG.WEB_NATIVE_TTS_FALLBACK_ENABLED &&
             Boolean(window.speechSynthesis) &&
             typeof window.SpeechSynthesisUtterance === 'function'
         );

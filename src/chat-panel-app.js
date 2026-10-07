@@ -32,6 +32,7 @@ function getMessageClassName(role) {
 window.addEventListener('DOMContentLoaded', () => {
     setUiLanguage(window.ailisDesktop?.preferences?.uiLanguage || 'zh-CN');
     setCompanionName(window.ailisDesktop?.preferences?.characterAssets?.effective?.displayName);
+    document.documentElement.style.setProperty('--companion-name', '"' + getCompanionName() + '"');
     {
         const chatTitleEl = document.getElementById('chat-title');
         if (chatTitleEl) chatTitleEl.textContent = getCompanionName();
