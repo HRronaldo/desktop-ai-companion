@@ -12,7 +12,7 @@ import {
     isVadRecognitionMode,
     normalizeAsrRecognitionMode
 } from './realtime-voice/asr-latency-presets.js';
-import { applyI18n, setUiLanguage, t } from './i18n.js';
+import { applyI18n, setUiLanguage, setCompanionName, getCompanionName, t } from './i18n.js';
 import { installChatSearch } from './chat-search.js';
 import { TaskInteractionView } from './task-interaction-view.js';
 
@@ -31,6 +31,13 @@ function getMessageClassName(role) {
 
 window.addEventListener('DOMContentLoaded', () => {
     setUiLanguage(window.ailisDesktop?.preferences?.uiLanguage || 'zh-CN');
+    setCompanionName(window.ailisDesktop?.preferences?.characterAssets?.effective?.displayName);
+    {
+        const chatTitleEl = document.getElementById('chat-title');
+        if (chatTitleEl) chatTitleEl.textContent = getCompanionName();
+        const titleInputEl = document.getElementById('message-input');
+        if (titleInputEl) titleInputEl.placeholder = t('说点什么，让 {name} 陪你聊聊');
+    }
     const messageListEl = document.getElementById('message-list');
     const inputEl = document.getElementById('message-input');
     const sendBtnEl = document.getElementById('send-btn');

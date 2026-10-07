@@ -4637,6 +4637,7 @@ function getQuickControlsState() {
     const preferences = getRendererPreferences();
     return {
         uiLanguage: getCurrentUiLanguage(),
+        companionName: preferences.characterAssets?.effective?.displayName || 'AILIS',
         speech: { value: preferences.speechMode, options: SPEECH_MODE_OPTIONS.map(value => ({ value, label: getSpeechModeLabel(value) })) },
         scale: { value: preferences.petScale, options: PET_SCALE_OPTIONS.map(value => ({ value, label: `${Math.round(value * 100)}%` })) },
         language: { value: getCurrentUiLanguage(), options: UI_LANGUAGE_OPTIONS.map(value => ({ value, label: UI_LANGUAGE_LABELS[value] || value })) }

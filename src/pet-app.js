@@ -8,7 +8,7 @@ import { ChatTTSSystem } from './chat-tts-system.js';
 import { createChatService } from './chat-service.js';
 import { createSpeechProvider } from './speech-provider.js';
 import { CONFIG, applyDesktopPreferencesToConfig } from './config.js';
-import { setUiLanguage } from './i18n.js';
+import { setUiLanguage, setCompanionName } from './i18n.js';
 
 const PET_RENDER_AVATAR_REFERENCE_HEIGHT = 560;
 const PET_RENDER_WINDOW_FRAME_HEIGHT = 960;
@@ -157,6 +157,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const effectivePreferences = withWebRenderPreferences(initialPreferences);
     applyDesktopPreferencesToConfig(effectivePreferences);
     setUiLanguage(initialPreferences.uiLanguage || 'zh-CN');
+    setCompanionName(initialPreferences.characterAssets?.effective?.displayName);
     if (!isEmbeddedWebExperience) {
         applyPetWindowFrameCameraCompensation();
     }
@@ -224,6 +225,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         const previousModelPath = CONFIG.MODEL_PATH;
         applyDesktopPreferencesToConfig(withWebRenderPreferences(preferences));
         setUiLanguage(preferences.uiLanguage || 'zh-CN');
+        setCompanionName(preferences.characterAssets?.effective?.displayName);
         if (CONFIG.MODEL_PATH !== previousModelPath) {
             window.location.reload();
             return;

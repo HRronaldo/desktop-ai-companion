@@ -308,7 +308,7 @@ const PHRASES = Object.freeze({
         '清空会话': 'Clear conversation',
         '打开控制面板': 'Open Control Panel',
         '关闭聊天窗': 'Close chat window',
-        '说点什么，让 AILIS 陪你聊聊': 'Say something and let AILIS chat with you',
+        '说点什么，让 {name} 陪你聊聊': 'Say something and let {name} chat with you',
         '已准备截图': 'Screenshot ready',
         '移除截图': 'Remove screenshot',
         '添加文件': 'Add files',
@@ -385,9 +385,9 @@ const PHRASES = Object.freeze({
         '我先看一眼屏幕...': 'Let me look at the screen first...',
         '本地模型未完成识别': 'The local model did not finish recognition',
         '自动 ASR 已暂停一小会儿': 'Continuous ASR paused for a moment',
-        'AILIS到啦！今天想和我聊点什么？': 'AILIS is here. What would you like to talk about today?',
-        'AILIS到啦！今天想和我聊点什么，或者直接把任务交给我都可以。': 'AILIS is here. We can chat, or you can hand me a task directly.',
-        'AILIS到啦！现在可以聊天啦~': 'AILIS is here. We can chat now.',
+        '{name}到啦！今天想和我聊点什么？': '{name} is here. What would you like to talk about today?',
+        '{name}到啦！今天想和我聊点什么，或者直接把任务交给我都可以。': '{name} is here. We can chat, or you can hand me a task directly.',
+        '{name}到啦！现在可以聊天啦~': '{name} is here. We can chat now.',
         'AILIS 正在执行当前请求，完成后再清空会话。': 'AILIS is still handling the current request. Clear the chat after it finishes.',
         '语音播放暂时不可用：{reason}': 'Voice playback is temporarily unavailable: {reason}',
         '当前语音服务不可用，已自动切换为纯文本回复。': 'The current voice service is unavailable, so AILIS switched to text-only replies.',
@@ -696,9 +696,9 @@ const PHRASES = Object.freeze({
         '我先看一眼屏幕...': '先に画面を確認します...',
         '本地模型未完成识别': 'ローカルモデルが認識を完了しませんでした',
         '自动 ASR 已暂停一小会儿': '自動 ASR を少し一時停止しました',
-        'AILIS到啦！今天想和我聊点什么？': 'AILIS です。今日は何を話しましょうか？',
-        'AILIS到啦！今天想和我聊点什么，或者直接把任务交给我都可以。': 'AILIS です。おしゃべりでも、タスクを任せても大丈夫です。',
-        'AILIS到啦！现在可以聊天啦~': 'AILIS です。もう話せますよ。',
+        '{name}到啦！今天想和我聊点什么？': '{name} です。今日は何を話しましょうか？',
+        '{name}到啦！今天想和我聊点什么，或者直接把任务交给我都可以。': '{name} です。おしゃべりでも、タスクを任せても大丈夫です。',
+        '{name}到啦！现在可以聊天啦~': '{name} です。もう話せますよ。',
         'AILIS 正在执行当前请求，完成后再清空会话。': 'AILIS は現在のリクエストを処理中です。完了後に会話をクリアしてください。',
         '语音播放暂时不可用：{reason}': '音声再生は一時的に利用できません: {reason}',
         '当前语音服务不可用，已自动切换为纯文本回复。': '現在の音声サービスが利用できないため、テキスト返信に切り替えました。',
@@ -1007,9 +1007,9 @@ const PHRASES = Object.freeze({
         '我先看一眼屏幕...': '먼저 화면을 볼게요...',
         '本地模型未完成识别': '로컬 모델이 인식을 완료하지 못했습니다',
         '自动 ASR 已暂停一小会儿': '자동 ASR을 잠시 일시 중지했습니다',
-        'AILIS到啦！今天想和我聊点什么？': 'AILIS가 왔어요. 오늘은 무엇을 이야기할까요?',
-        'AILIS到啦！今天想和我聊点什么，或者直接把任务交给我都可以。': 'AILIS가 왔어요. 대화해도 좋고, 바로 작업을 맡겨도 좋아요.',
-        'AILIS到啦！现在可以聊天啦~': 'AILIS가 왔어요. 이제 대화할 수 있어요.',
+        '{name}到啦！今天想和我聊点什么？': '{name}가 왔어요. 오늘은 무엇을 이야기할까요?',
+        '{name}到啦！今天想和我聊点什么，或者直接把任务交给我都可以。': '{name}가 왔어요. 대화해도 좋고, 바로 작업을 맡겨도 좋아요.',
+        '{name}到啦！现在可以聊天啦~': '{name}가 왔어요. 이제 대화할 수 있어요.',
         'AILIS 正在执行当前请求，完成后再清空会话。': 'AILIS가 현재 요청을 처리 중입니다. 완료 후 대화를 지워 주세요.',
         '语音播放暂时不可用：{reason}': '음성 재생을 잠시 사용할 수 없습니다: {reason}',
         '当前语音服务不可用，已自动切换为纯文本回复。': '현재 음성 서비스를 사용할 수 없어 텍스트 답변으로 전환했습니다.',
@@ -1038,6 +1038,18 @@ export function setUiLanguage(language) {
     return currentLanguage;
 }
 
+let companionName = 'AILIS';
+
+export function setCompanionName(name) {
+    const next = String(name || '').trim();
+    companionName = next || 'AILIS';
+    return companionName;
+}
+
+export function getCompanionName() {
+    return companionName;
+}
+
 
 
 export function t(source, replacements = {}) {
@@ -1045,9 +1057,10 @@ export function t(source, replacements = {}) {
     const translated = currentLanguage === 'zh-CN'
         ? key
         : (PHRASES[currentLanguage]?.[key] || key);
+    const resolved = { name: companionName, ...replacements };
     return translated.replace(/\{([a-zA-Z0-9_]+)\}/g, (match, name) => (
-        Object.prototype.hasOwnProperty.call(replacements, name)
-            ? String(replacements[name])
+        Object.prototype.hasOwnProperty.call(resolved, name)
+            ? String(resolved[name])
             : match
     ));
 }
