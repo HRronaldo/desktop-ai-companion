@@ -89,6 +89,12 @@ uv pip install -r requirements.txt   # 迁移后将改为 pyproject.toml
 - 本机已把运行时统一到 `D:\program\desktop-ai-companion\models\voice-runtime`（含 `voice-venv` / `CosyVoice`(+模型) / manifest）。
 - 依赖修复：pyworld 需先装 numpy；CosyVoice/ASR 走 hf-mirror（`HF_ENDPOINT`）。
 
+### 语音显存策略（8GB 关键约束）
+- 本机实测：**CosyVoice3 本身正常**（手动 warmup 合成成功）。
+- 但 **qwen2.5-7b（~7.4GB）+ CosyVoice 不能同时驻留 8GB** → 同时用会 CUDA OOM（这就是"应用里没声音"的根因）。
+- 本 fork 默认：**CosyVoice 走 CPU**（`AILIS_COSYVOICE3_ACCELERATION` 默认由 `auto` 改为 `cpu`，见 `electron/desktop-cosyvoice3-tts.cjs` 与 bootstrap verify）→ LLM 留 GPU、TTS 走 CPU，可共存（TTS 较慢，首次加载 ~20s，单句 rtf ~3.6）。
+- 备选（若要 GPU 版 TTS 低延迟）：换更小 LLM（如 qwen2.5:3b），或说话前卸载 LLM。
+
 ## 网络（重要）
 - GitHub 直连被墙；`gh-proxy.com` 镜像可用但慢（~0.1–0.3 MB/s）。
 - 本机系统代理 `127.0.0.1:7890`（`ProxyEnable=1`），当前节点很慢（~0.01 MB/s）。
