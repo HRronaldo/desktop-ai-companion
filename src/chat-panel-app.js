@@ -151,7 +151,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function getStatusText() {
         if (isCapturingVision) {
-            return t('AILIS 正在看截图...');
+            return t('{name} 正在看截图...');
         }
         if (isRecording) {
             return speechStatusText || t('正在听你说话...');
@@ -169,7 +169,7 @@ window.addEventListener('DOMContentLoaded', () => {
             return t('正在中断当前对话...');
         }
         if (isBusy) {
-            return t('AILIS 正在思考或说话...');
+            return t('{name} 正在思考或说话...');
         }
         if (getRecognitionMode() === 'continuous') {
             return t('自动 ASR 已开启，等待你说话...');
@@ -688,7 +688,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const roleLabel = message.role === 'user'
             ? 'User'
             : message.role === 'assistant'
-                ? 'AILIS'
+                ? getCompanionName()
                 : message.role === 'system'
                     ? 'System'
                     : message.role || 'Message';
