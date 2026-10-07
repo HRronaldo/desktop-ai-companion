@@ -11,6 +11,8 @@ function render(state) {
     if (!state) return;
     setUiLanguage(state.uiLanguage);
     applyI18n(document, { skipSelectors: ['#voice-options', '#quick-scale', '#quick-language', '#quick-status'] });
+    const companionNameEl = document.getElementById('quick-companion-name');
+    if (companionNameEl) companionNameEl.textContent = state.companionName || 'AILIS';
     // Update existing controls in place so preference broadcasts keep keyboard focus.
     for (const option of state.speech.options) {
         let button = [...voice.children].find(el => el.dataset.value === option.value);

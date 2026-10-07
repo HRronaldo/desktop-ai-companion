@@ -3,6 +3,8 @@ import {
     applyI18n,
     normalizeUiLanguage,
     setUiLanguage,
+    setCompanionName,
+    getCompanionName,
     t
 } from './i18n.js';
 import { createFormBaseline, hasFormChanges } from './control-panel-draft.js';
@@ -5609,6 +5611,11 @@ function fillForm(preferences) {
     const normalized = normalizePreferences(preferences);
     currentPreferences = normalized;
     setUiLanguage(normalized.uiLanguage);
+    setCompanionName(normalized.characterAssets?.effective?.displayName || preferences?.characterAssets?.effective?.displayName);
+    {
+        const eyebrowEl = document.getElementById('eyebrow');
+        if (eyebrowEl) eyebrowEl.textContent = getCompanionName();
+    }
     pendingClearLlmKey = false;
     pendingClearVisionLlmKey = false;
     pendingClearElevenLabsKey = false;

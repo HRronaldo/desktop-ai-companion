@@ -1,4 +1,5 @@
 import { layoutPetBubble } from './pet-bubble-layout.js';
+import { getCompanionName } from './i18n.js';
 
 export const AVATAR_SPEECH_EVENT_NAME = 'ailis-avatar-speech-event';
 
@@ -322,7 +323,7 @@ export function installAvatarDialogueBubble({
 
     const labelEl = document.createElement('div');
     labelEl.className = 'avatar-dialogue-bubble__label';
-    labelEl.textContent = 'AILIS';
+    labelEl.textContent = getCompanionName();
     labelEl.setAttribute('aria-hidden', 'true');
     bubbleEl.appendChild(labelEl);
 
