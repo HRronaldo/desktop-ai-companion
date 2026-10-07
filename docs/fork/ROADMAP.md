@@ -40,8 +40,9 @@ R7: M0/M1 跑通后启动设计
 - 占位原则：**关闭即拒绝**；资产本地隔离、不进公开仓库、不分发。
 
 ## 语音轨道
-- **V0** 现用 hosted TTS（可用，有延迟）——当前状态。
-- **V1**（B2）CosyVoice3 本地 TTS（~11.7GB 构建）——排在形象/主链路之后。
+- **V0** hosted（普通，远程，长文本易丢）——可保留。
+- **V1（B2）** CosyVoice3 本地 TTS（~11.7GB 构建）——安装中（已修 numpy/pyworld + git protocol v1）。
+- **V2（B1）** ✅ **native 本地系统语音（即时、零下载）**已启用（`speechMode=native`）。
 
 ## UI 轨道（角色名动态化，R7 第一步）
 - **UI-1** ✅ 界面显示的角色名**跟随当前角色包**：聊天标题/输入框占位、控制面板标题、桌宠气泡标签、右键快捷面板 → 从 `characterAssets.effective.displayName` 注入（默认 AILIS；王梦诗包→"王梦诗"）。机制：`i18n.js` 的 `setCompanionName()` + `{name}` 占位符。
