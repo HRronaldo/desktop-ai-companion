@@ -75,6 +75,14 @@ uv pip install -r requirements.txt   # 迁移后将改为 pyproject.toml
   然后 `ollama create qwen2.5-7b-q4km -f Modelfile`。
 - 现状：ctx **16384**，100% GPU，显存约 **7.4 / 8 GB（偏紧）**。若后续长对话再超，可考虑降回 8192 或换更小量化。
 
+### 排障：git 2.39.1 的 HTTP/2 ref-listing bug（影响 clone/fetch）
+- 现象：经代理 `git clone/fetch` 报 `BUG: remote-curl.c:1494 ... fatal: expected flush after ref listing`（HTTP/1.1 无效）。
+- 修复：`git config --global protocol.version 1`（强制协议 v1，已验证可克隆 CosyVoice；同时修复上游 fetch）。
+
+### 语音模式
+- `off` / `hosted`（普通，远程，长文本易丢）/ `server`（ElevenLabs 云端）/ `cosyvoice3`（本地，需运行时）/ **`native`（本地系统语音，即时、零下载，已启用）**。
+- 装本地 CosyVoice3 运行时：`VoiceRuntimeBootstrap.bootstrap({allowNetwork:true, includeOptional:true})`（非 `prepare-ailis-voice-runtime.mjs`，那个只校验）。
+
 ## 网络（重要）
 - GitHub 直连被墙；`gh-proxy.com` 镜像可用但慢（~0.1–0.3 MB/s）。
 - 本机系统代理 `127.0.0.1:7890`（`ProxyEnable=1`），当前节点很慢（~0.01 MB/s）。
