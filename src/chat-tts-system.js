@@ -66,6 +66,18 @@ export class ChatTTSSystem {
         this.messageHistory = [];
         this.historyRestored = false;
 
+        this.userPresence = null;
+        this.userPresenceUnsubscribe = window.ailisDesktop?.onUserPresence?.((payload = {}) => {
+            this.userPresence = payload;
+        }) || null;
+        if (window.ailisDesktop?.getUserPresence) {
+            void Promise.resolve(window.ailisDesktop.getUserPresence()).then((payload) => {
+                if (payload && typeof payload === 'object') {
+                    this.userPresence = payload;
+                }
+            }).catch(() => {});
+        }
+
         this.isBusy = false;
         this.autoChatTimer = null;
         this.hasShownAutoplayHint = false;
@@ -245,12 +257,18 @@ export class ChatTTSSystem {
     }
 
     getProactiveChatState() {
+        const presence = this.userPresence || {};
         return {
             isBusy: this.isBusy,
             userTyping: Boolean(this.inputEl?.value?.trim()),
             inputDisabled: Boolean(this.inputEl?.disabled),
             voicePlaying: Boolean(this.activeChunkedSpeechSession),
-            messageHistory: this.messageHistory
+            messageHistory: this.messageHistory,
+            systemIdleSeconds: Number(presence.idleSeconds || 0),
+            foregroundApp: String(presence.foregroundApp || ''),
+            isFullscreen: Boolean(presence.isFullscreen),
+            isInMeeting: Boolean(presence.isInMeeting),
+            isDnd: Boolean(presence.isDnd)
         };
     }
 

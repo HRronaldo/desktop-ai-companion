@@ -240,6 +240,12 @@ contextBridge.exposeInMainWorld('ailisDesktop', {
         ipcRenderer.on('ailis:preferences-updated', wrapped);
         return () => ipcRenderer.removeListener('ailis:preferences-updated', wrapped);
     },
+    onUserPresence: (listener) => {
+        const wrapped = (_event, payload = {}) => listener(payload);
+        ipcRenderer.on('ailis:user-presence', wrapped);
+        return () => ipcRenderer.removeListener('ailis:user-presence', wrapped);
+    },
+    getUserPresence: () => ipcRenderer.invoke('ailis:get-user-presence'),
     onCharacterLabToggle: (listener) => {
         const wrapped = (_event, payload = {}) => listener(payload);
         ipcRenderer.on('ailis:character-lab-toggle', wrapped);

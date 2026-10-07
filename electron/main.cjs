@@ -28,6 +28,7 @@ const {
     warmupCosyVoice3TTS
 } = require('./desktop-cosyvoice3-tts.cjs');
 const { VoiceRuntimeBootstrap } = require('./voice-runtime-bootstrap.cjs');
+const { UserPresence } = require('./ailis-user-presence.cjs');
 const {
     AILISGatewayBridgeManager,
     AILISAgentRuntimeSupervisor
@@ -3541,6 +3542,23 @@ function broadcastPreferencesUpdated() {
     controlWindow?.webContents.send('ailis:preferences-updated', payload);
 }
 
+function broadcastUserPresence(payload) {
+    petWindow?.webContents.send('ailis:user-presence', payload);
+    chatWindow?.webContents.send('ailis:user-presence', payload);
+    controlWindow?.webContents.send('ailis:user-presence', payload);
+}
+
+let userPresence = null;
+function getUserPresence() {
+    if (!userPresence) {
+        userPresence = new UserPresence({
+            broadcast: (payload) => broadcastUserPresence(payload),
+            getConfig: () => getRendererPreferences()
+        });
+    }
+    return userPresence;
+}
+
 function getWindowMinimumSize(key) {
     if (key === 'petWindow') {
         return PET_MIN_SIZE;
@@ -5317,6 +5335,7 @@ function registerIpc() {
     });
 
     ipcMain.handle('ailis:get-preferences', () => getRendererPreferences());
+ipcMain.handle('ailis:get-user-presence', () => getUserPresence().getPresence());
     ipcMain.handle('ailis:get-control-panel-state', () => getControlPanelState());
     ipcMain.handle('ailis:save-preferences', async (_event, payload = {}) => {
         const preferences = applyPreferencesPatch(payload);
@@ -5906,6 +5925,7 @@ app.whenReady().then(async () => {
         return;
     }
     configureCosyVoice3Runtime();
+    getUserPresence().start();
     if (!desktopState.preferences.llmBaseUrl || desktopState.preferences.llmBaseUrl === 'https://api.openai.com/v1') {
         desktopState.preferences.llmBaseUrl = DEFAULT_LLM_BASE_URL;
     }

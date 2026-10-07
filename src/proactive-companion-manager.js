@@ -190,6 +190,11 @@ export class ProactiveCompanionManager {
                 inputDisabled: Boolean(chat.inputDisabled),
                 assistantBusy: Boolean(chat.isBusy),
                 voicePlaying: Boolean(chat.voicePlaying),
+                systemIdleSeconds: Number(chat.systemIdleSeconds || 0),
+                foregroundApp: String(chat.foregroundApp || ''),
+                isFullscreen: Boolean(chat.isFullscreen),
+                isInMeeting: Boolean(chat.isInMeeting),
+                isDnd: Boolean(chat.isDnd),
                 lastUserMessageAgeMs: this.state.lastUserTurnAt ? now - this.state.lastUserTurnAt : null,
                 lastAssistantMessageAgeMs: this.state.lastAssistantTurnAt ? now - this.state.lastAssistantTurnAt : null,
                 lastProactiveAgeMs: this.state.lastProactiveAt ? now - this.state.lastProactiveAt : null
@@ -214,6 +219,9 @@ export class ProactiveCompanionManager {
                 reason: 'busy',
                 delayMs: isCompanionMode ? COMPANION_SPEAK_INTERVAL_MS : DEFAULT_BUSY_RECHECK_MS
             };
+        }
+        if (state.isDnd || state.isFullscreen || state.isInMeeting) {
+            return { ok: false, reason: 'do_not_disturb', delayMs: DEFAULT_BUSY_RECHECK_MS };
         }
         if (!isCompanionMode && Number(state.lastUserMessageAgeMs || 0) > 0 && state.lastUserMessageAgeMs < DEFAULT_AFTER_TURN_MIN_MS) {
             return { ok: false, reason: 'after_user_turn_cooldown', delayMs: DEFAULT_AFTER_TURN_MIN_MS };

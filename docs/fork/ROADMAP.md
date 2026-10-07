@@ -47,3 +47,9 @@ R7: M0/M1 跑通后启动设计
 ## UI 轨道（角色名动态化，R7 第一步）
 - **UI-1** ✅ 界面显示的角色名**跟随当前角色包**：聊天标题/输入框占位、控制面板标题、桌宠气泡标签、右键快捷面板 → 从 `characterAssets.effective.displayName` 注入（默认 AILIS；王梦诗包→"王梦诗"）。机制：`i18n.js` 的 `setCompanionName()` + `{name}` 占位符。
 - **UI-2**（待办）控制面板说明性文案里的 "AILIS" 一并动态化。
+
+## M2 感知层（Phase 1 已实现）
+- 新模块 `electron/ailis-user-presence.cjs`：键鼠 idle（powerMonitor）、前台应用/全屏（PowerShell P/Invoke）、会议应用启发、手动专注(DND)。
+- IPC `ailis:user-presence`（广播）+ `ailis:get-user-presence`；渲染层 `chat-tts-system` 合并进 `interactionState`；`ProactiveCompanionManager.hardGate` 在 全屏/会议/免打扰 时静默（`do_not_disturb`）。
+- 配置：`m2FullscreenSuppress` / `m2MeetingSuppress` / `m2FocusMode`（默认 true / true / false）。
+- 待办：控制面板开关、更精确的会议/全屏判定、把信号交给模型做"忙/摸鱼/久未互动"的语义判断。
