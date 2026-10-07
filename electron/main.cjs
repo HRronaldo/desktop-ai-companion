@@ -253,6 +253,7 @@ const MENU_I18N = Object.freeze({
         speechHosted: 'Standard Voice Mode',
         speechServer: 'ElevenLabs Cloud Voice',
         speechCosyVoice3: 'CosyVoice3 Local High Quality',
+        speechNative: 'Local System Voice (instant)',
         scale: 'Scale',
         showInTaskbar: 'Show avatar in taskbar',
         quit: 'Quit',
@@ -275,6 +276,7 @@ const MENU_I18N = Object.freeze({
         speechHosted: '通常音声モード',
         speechServer: 'ElevenLabs クラウド音声',
         speechCosyVoice3: 'CosyVoice3 ローカル高品質',
+        speechNative: 'ローカル標準音声（即時）',
         scale: '倍率',
         showInTaskbar: 'アバターをタスクバーに表示',
         quit: '終了',
@@ -297,6 +299,7 @@ const MENU_I18N = Object.freeze({
         speechHosted: '일반 음성 모드',
         speechServer: 'ElevenLabs 클라우드 음성',
         speechCosyVoice3: 'CosyVoice3 로컬 고품질',
+        speechNative: '로컬 시스템 음성 (즉시)',
         scale: '크기',
         showInTaskbar: '작업 표시줄에 아바타 표시',
         quit: '종료',
@@ -4528,6 +4531,7 @@ function menuText(key) {
         speechHosted: '普通语音模式',
         speechServer: 'ElevenLabs 云端语音',
         speechCosyVoice3: 'CosyVoice3 本地高质量',
+        speechNative: '本地系统语音（即时）',
         scale: '缩放',
         showInTaskbar: '桌宠显示在任务栏',
         quit: '退出',
@@ -4569,6 +4573,9 @@ function getSpeechModeLabel(mode) {
     }
     if (mode === 'cosyvoice3') {
         return menuText('speechCosyVoice3');
+    }
+    if (mode === 'native') {
+        return menuText('speechNative');
     }
     return menuText('speechOff');
 }

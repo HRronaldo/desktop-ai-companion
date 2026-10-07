@@ -201,7 +201,7 @@ function resolveSpeechMode(modeOverride = null) {
     }
 
     if (requestedMode === 'native') {
-        return desktopRuntime ? 'off' : 'native';
+        return 'native';
     }
 
     if (requestedMode === 'off') {
