@@ -2095,6 +2095,16 @@ class VoiceRuntimeBootstrap {
 
     async installVoicePackages({ paths = this.getPaths(), onOutput } = {}) {
         const python = await this.getInstallPython({ paths, onOutput });
+        // Install numpy FIRST so source-built packages (e.g. pyworld) can find it
+        // while pip builds with --no-build-isolation (which the openai-whisper entry triggers).
+        await this.installPipPackages({
+            paths,
+            python,
+            packages: ['numpy==1.26.4'],
+            extraIndexUrls: DEFAULT_VOICE_PIP_EXTRA_INDEX_URLS,
+            description: 'voice runtime numpy bootstrap',
+            onOutput
+        });
         return this.installPipPackages({
             paths,
             python,
