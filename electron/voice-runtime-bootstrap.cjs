@@ -2272,6 +2272,7 @@ class VoiceRuntimeBootstrap {
                 AILIS_COSYVOICE3_MODEL_DIR: paths.cosyVoice3ModelDir,
                 AILIS_COSYVOICE3_LOCAL_ONLY: '1',
                 AILIS_COSYVOICE3_DISABLE_REMOTE_TEXT_FRONTEND: '1',
+                AILIS_COSYVOICE3_ACCELERATION: process.env.AILIS_COSYVOICE3_ACCELERATION || 'cpu',
                 KMP_DUPLICATE_LIB_OK: 'TRUE',
                 HF_HUB_OFFLINE: '1',
                 TRANSFORMERS_OFFLINE: '1',
