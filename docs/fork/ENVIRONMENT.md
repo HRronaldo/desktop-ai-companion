@@ -83,6 +83,12 @@ uv pip install -r requirements.txt   # 迁移后将改为 pyproject.toml
 - `off` / `hosted`（普通，远程，长文本易丢）/ `server`（ElevenLabs 云端）/ `cosyvoice3`（本地，需运行时）/ **`native`（本地系统语音，即时、零下载，已启用）**。
 - 装本地 CosyVoice3 运行时：`VoiceRuntimeBootstrap.bootstrap({allowNetwork:true, includeOptional:true})`（非 `prepare-ailis-voice-runtime.mjs`，那个只校验）。
 
+### 语音运行时安装位置（重要）
+- **源码/开发运行**（`pnpm desktop:dev`）默认 = `<项目根>/models/voice-runtime`（D 盘）；**打包运行** = `userData/local-runtimes`（C 盘）。
+- ⚠️ 直接用 `VoiceRuntimeBootstrap.bootstrap()` 安装时，**必须显式传 `runtimeRoot=<项目根>/models/voice-runtime`**；否则会用 bootstrap 自身默认（userData → C 盘），导致**应用在 dev 下找不到**（"缺失/不完整"）。
+- 本机已把运行时统一到 `D:\program\desktop-ai-companion\models\voice-runtime`（含 `voice-venv` / `CosyVoice`(+模型) / manifest）。
+- 依赖修复：pyworld 需先装 numpy；CosyVoice/ASR 走 hf-mirror（`HF_ENDPOINT`）。
+
 ## 网络（重要）
 - GitHub 直连被墙；`gh-proxy.com` 镜像可用但慢（~0.1–0.3 MB/s）。
 - 本机系统代理 `127.0.0.1:7890`（`ProxyEnable=1`），当前节点很慢（~0.01 MB/s）。
