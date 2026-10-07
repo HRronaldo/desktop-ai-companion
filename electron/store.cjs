@@ -11,7 +11,7 @@ const PET_BASE_WIDTH = 720;
 const PET_BASE_HEIGHT = 960;
 const PET_SCALE_OPTIONS = [0.3, 0.4, 0.5, 0.6, 0.7, 0.85, 1, 1.15, 1.3];
 const DEFAULT_PET_SCALE = 0.3;
-const SPEECH_MODE_OPTIONS = ['off', 'hosted', 'server', 'cosyvoice3'];
+const SPEECH_MODE_OPTIONS = ['off', 'hosted', 'server', 'cosyvoice3', 'native'];
 const RECOGNITION_MODE_OPTIONS = ['fast-vad', 'auto-vad', 'continuous', 'manual'];
 // Legacy daily preferences normalize to the single main-agent path.
 const CONVERSATION_MODE_OPTIONS = ['assistant'];
